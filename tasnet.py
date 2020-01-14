@@ -12,8 +12,11 @@ class TasNet:
         :param N: Number of vectors for convolution
         """
         self.L, self.N = L, N
-        self.conv1d_U = nn.Conv1d(L, N, kernel_size=1, stride=1, bias=False)
-        self.conv1d_V = nn.Conv1d(L, N, kernel_size=1, stride=1, bias=False)
+        self.conv1d_U = nn.Conv1d(in_channels=L, out_channels=N, kernel_size=1, stride=1, bias=False)
+        self.conv1d_V = nn.Conv1d(in_channels=L, out_channels=N, kernel_size=1, stride=1, bias=False)
+
+    def forward(self):
+        pass
 
     def encoder(self, speech_mixture):
         """
@@ -41,7 +44,7 @@ class TasNet:
         norm_coefficient = torch.norm(speech_mixture, p=2, dim=2, keepdim=True)  # B x K x 1
         norm_mixture = speech_mixture / (norm_coefficient + EPS)  # B x K x L
 
-        # 1-D gated convolution (along time dimension)
+        # Flatten all items to 2D matrix
         norm_mixture = torch.unsqueeze(norm_mixture.view(-1, L), 2)  # B*K x L x 1
 
         # Apply non-linearity
@@ -52,7 +55,6 @@ class TasNet:
         mixture_weight = conv * gate  # B*K x N x 1
         mixture_weight = mixture_weight.view(B, K, self.N)  # B x K x N
         return mixture_weight, norm_coefficient
-
 
     def separator(self, mixture_weight):
         """
