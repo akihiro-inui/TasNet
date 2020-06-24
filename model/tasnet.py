@@ -166,7 +166,7 @@ class TasNet(object):
         self.summary_B = tf.summary.histogram('decoder_basis_signals', self.B)
         return estimated_source
 
-    def build_network(self, mixture):
+    def sequence(self, mixture):
         # Input: Speech mixture [B, K, L], Output: Mixture weight [B, K, N], normalize coefficient [B, K, 1]
         mixture_weight, norm_coefficient = self.encoder(mixture)
         # Input: Mixture weight [B, K, N] , Output: Estimated mask [B, K, nspk, N]
