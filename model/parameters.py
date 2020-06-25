@@ -1,5 +1,5 @@
 sr = 8000
-sample_duration = 0.005 # s
+sample_duration = 0.005  # s
 L = int(sr * sample_duration)   # [40]
 N = 500  # num_basis
 nspk = 2  # Number of speakers

@@ -14,7 +14,7 @@ class ExperimentRunner:
         estimated_source = self.model.sequence(speech_mixture)
 
     def process_audio(self, audio_file_path: str):
-        mix, _ = librosa.load(audio_file_path, sr=sr)
+        mix, _ =
         return mix
 
     def main(self):
